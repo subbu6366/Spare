@@ -1,4 +1,4 @@
-// Array to store cart items
+// Array to store cart items in
 const cartData = [];
 
 document.addEventListener('DOMContentLoaded', () => {
