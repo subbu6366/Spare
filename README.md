@@ -1,4 +1,6 @@
-#Spare
+# Spare
+
+Designed, developed, and deployed a fully functional spare parts e-commerce website using a modern front-end stack and Amazon Web Services (AWS) cloud platform. The project involved creating a responsive user interface, implementing robust styling, and ensuring seamless deployment for reliable accessibility.
 
 # Abstract
 
