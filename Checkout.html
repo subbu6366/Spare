@@ -1,0 +1,81 @@
+# Checkout page
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="checkout-container">
+        <h1>Checkout</h1>
+
+        <!-- Address Form -->
+        <form id="address-form">
+            <label for="country">Country</label>
+            <select id="country" name="country" required>
+                <option value="India">India</option>
+            </select>
+
+            <label for="state">State</label>
+            <input type="text" id="state" name="state" required>
+
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" required>
+
+            <label for="houseNumber">House Number</label>
+            <input type="text" id="houseNumber" name="houseNumber" required>
+
+            <label for="street">Street</label>
+            <input type="text" id="street" name="street" required>
+
+            <label for="pinCode">Pin Code</label>
+            <input type="text" id="pinCode" name="pinCode" required>
+
+            <!-- Payment Method: Cash on Delivery -->
+            <label for="payment-method">Payment Method</label>
+            <select id="payment-method" name="payment-method" required>
+                <option value="COD" selected>Cash on Delivery</option>
+            </select>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submit-order">Proceed to Payment</button>
+        </form>
+
+        <!-- Thank You Message (Initially Hidden) -->
+        <div id="thank-you-message" style="display: none;">
+            <h2>Thank you for shopping with us!</h2>
+            <p>Your order is confirmed. You will be redirected to the homepage shortly.</p>
+            <a href="Spare.html" class="btn">Go to Home</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('address-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            // Collect the data
+            const country = document.getElementById('country').value;
+            const state = document.getElementById('state').value;
+            const city = document.getElementById('city').value;
+            const houseNumber = document.getElementById('houseNumber').value;
+            const street = document.getElementById('street').value;
+            const pinCode = document.getElementById('pinCode').value;
+            const paymentMethod = document.getElementById('payment-method').value;
+
+            // You can use the above data to process the order if necessary
+
+            // Hide the form and show the Thank You message
+            document.getElementById('address-form').style.display = 'none';
+            document.getElementById('thank-you-message').style.display = 'block';
+
+            // Redirect to home after a delay (optional)
+            setTimeout(function() {
+                window.location.href = 'Spare.html'; // Redirect to home page
+            }, 5000); // 5 seconds delay
+        });
+    </script>
+</body>
+</html>
