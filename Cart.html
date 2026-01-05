@@ -1,0 +1,96 @@
+# Cart page
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Your Cart</h1>
+    
+    <!-- Cart Items Container -->
+    <div id="cart-items"></div>
+
+    <!-- Cart Total -->
+    <div id="cart-total"></div>
+
+    <!-- Proceed to Checkout Button -->
+    <div class="cart-total">
+        <button id="checkout-btn" class="btn">Proceed to Checkout</button>
+    </div>
+
+    <script>
+        // Retrieve cart data from localStorage
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Select the container elements
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotalContainer = document.getElementById('cart-total');
+        const checkoutBtn = document.getElementById('checkout-btn');
+
+        // Initialize the total amount
+        let total = 0;
+
+        // Function to render the cart items
+        function renderCart() {
+            cartItemsContainer.innerHTML = ''; // Clear the cart container
+            total = 0; // Reset the total
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Your cart is empty!</p>';
+                cartTotalContainer.innerHTML = '';
+                checkoutBtn.style.display = 'none'; // Hide checkout button if cart is empty
+            } else {
+                cart.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('cart-item');
+
+                    itemElement.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" />
+                        <h3>${item.name}</h3>
+                        <p>Price: ₹${item.price}</p>
+                        <p>Rating: ${item.rating}</p>
+                        <button class="delete-item" data-id="${item.id}">Remove</button>
+                    `;
+
+                    cartItemsContainer.appendChild(itemElement);
+
+                    // Add the item price to the total
+                    total += parseFloat(item.price);
+                });
+
+                // Display the total price
+                cartTotalContainer.innerHTML = `<h3>Total: ₹${total.toFixed(2)}</h3>`;
+                checkoutBtn.style.display = 'block'; // Show checkout button if cart has items
+            }
+        }
+
+        // Add event listener for delete buttons
+        cartItemsContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('delete-item')) {
+                const itemId = event.target.getAttribute('data-id');
+
+                // Remove item from cart array
+                const updatedCart = cart.filter(item => item.id !== itemId);
+
+                // Update localStorage with the new cart
+                localStorage.setItem('cart', JSON.stringify(updatedCart));
+
+                // Re-render the cart
+                renderCart();
+            }
+        });
+
+        // Proceed to Checkout button functionality
+        checkoutBtn.addEventListener('click', function() {
+            window.location.href = 'checkout.html';
+        });
+
+        // Initial rendering of the cart
+        renderCart();
+    </script>
+</body>
+</html>
